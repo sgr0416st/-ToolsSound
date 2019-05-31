@@ -1,4 +1,4 @@
-package sgr.st.sound.lib;
+package sgr.st.sound.old;
 
 public class SoundRules {
 	public static final float sampleRate = 8000;

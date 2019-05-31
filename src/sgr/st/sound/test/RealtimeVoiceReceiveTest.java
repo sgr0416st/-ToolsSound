@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 
-import sgr.st.sound.lib.RealtimeReceiveSoundPlayer;
-import sgr.st.sound.lib.SoundRules;
+import sgr.st.sound.old.RealtimeReceiveSoundPlayer;
+import sgr.st.sound.old.SoundRules;
 
 public class RealtimeVoiceReceiveTest {
 
@@ -15,7 +15,7 @@ public class RealtimeVoiceReceiveTest {
 		try {
 			System.out.println("受信IP: " + InetAddress.getLocalHost().getHostAddress());
 			System.out.println("受信ポート: " + SoundRules.PORT_RTP_SOUND_RCEIVE);
-			receiver = new RealtimeReceiveSoundPlayer(3200);
+			receiver = new RealtimeReceiveSoundPlayer(SoundRules.SIZE_MAX_DATA_ULAW);
 			receiver.start();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 			while(true) {
