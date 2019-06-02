@@ -38,27 +38,20 @@ public class AudioPlayer{
 
 	/**
 	 * 与えられたバッファサイズを元にスピーカにアクセスして、ストリームを取得します。
-	 * スピーカへ渡すデータの形式をLinearと仮定します。
-	 * 取得したストリームはoutFormatの形式で受け取ることができる様になります。
+	 * スピーカへ渡すデータの形式はそのまま渡せる形式とします。
+	 * 取得したストリームはformatの形式で受け取ることができる様になります。
 	 *
-	 * @param in_size １度の書き込み時に受け取るデータ量
-	 * @param out_size ラインへ１度に送るデータ量
-	 * @param inFormat 読み取り形式。スピーカから取得したラインはこの形式で受け取れる様に変換されます。
+	 * @param size １度の書き込み時に受け取るデータ量
+	 * @param format 読み取り形式。スピーカから取得したラインはこの形式で受け取れる様に変換されます。
 	 * @throws LineUnavailableException
 	 */
-	public AudioPlayer(int in_size, int out_size, AudioFormat inFormat) throws LineUnavailableException {
+	public AudioPlayer(int size, AudioFormat format) throws LineUnavailableException {
 		this(
-				in_size,
-				out_size,
-				inFormat,
-				new AudioFormat(
-						AudioRules.sampleRate,
-						AudioRules.sampleSizeInBits_PCM,
-						AudioRules.channels,
-						true,
-						AudioRules.isBigEndian
-						)
-				);
+				size,
+				size,
+				format,
+				format
+			);
 	}
 
 	/**

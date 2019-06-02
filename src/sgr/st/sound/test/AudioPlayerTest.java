@@ -27,7 +27,9 @@ public class AudioPlayerTest {
 			// Set an arbitrary buffer size of 1024 frames.
 			numBytes = 1024 * format.getFrameSize();
 			audioBytes = new byte[numBytes];
-			player = new AudioPlayer(numBytes, numBytes, format, format);
+			//player = new AudioPlayer(numBytes, numBytes, format, format);
+			player = new AudioPlayer(numBytes, format);
+
 			System.out.println("sound test : ");
 			while ((audioInputStream.read(audioBytes)) != -1) {
 				player.write(new ByteArrayInputStream(audioBytes));
