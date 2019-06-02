@@ -119,10 +119,12 @@ public class AudioPlayer{
 	}
 
 	public void halt() {
+		this.sourceDataLine.drain();
 		this.sourceDataLine.stop();
 	}
 
 	public void close() {
+		this.sourceDataLine.drain();
 		this.sourceDataLine.close();
 	}
 
