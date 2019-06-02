@@ -1,4 +1,4 @@
-package sgr.st.sound.old;
+package sgr.st.sound._old;
 
 import java.io.ByteArrayInputStream;
 import java.net.DatagramSocket;
@@ -7,8 +7,8 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
-import sgr.st.rtp.lib.RTPPacketReceiver;
-import sgr.st.rtp.lib.RTPReceiveThread;
+import sgr.st._old.rtp.lib.RTPPacketReceiver;
+import sgr.st._old.rtp.lib.RTPReceiveThread;
 import sgr.st.thread.lib.ICallback;
 import sgr.st.thread.lib.ThreadOperater;
 

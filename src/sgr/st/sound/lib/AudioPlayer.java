@@ -8,6 +8,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.Mixer;
 import javax.sound.sampled.SourceDataLine;
 
 public class AudioPlayer{
@@ -18,6 +19,35 @@ public class AudioPlayer{
 	protected byte[] buffer;
 	protected int size;
 	protected AudioInputStream inStream, outStream;
+
+
+
+	/**
+	 * 未確認！！！！！
+	 * 与えられたバッファサイズとoutFormatを元にスピーカにアクセスして、ストリームを取得します。
+	 * 取得したストリームはinFormatの形式で受け取ることができる様になります。
+	 *
+	 * @param max_size ラインへ１度に送る最大のデータ量
+	 * @param inFormat 読み取り形式。スピーカから取得したラインはこの形式で渡せる様に変換されます。
+	 * nullを渡すと、元のフォーマットを維持したまま読み取りが可能になります。
+	 * @param outFormat スピーカデバイスへ渡すデータの形式。基本的には Linearです。
+	 * @throws LineUnavailableException
+	 */
+	public AudioPlayer(int max_size, AudioFormat inFormat, AudioFormat outFormat, Mixer.Info mixerInfo) throws LineUnavailableException {
+		this.outFormat = outFormat;
+		if(inFormat == null) {
+			this.inFormat = outFormat;
+		}else {
+			this.inFormat = inFormat;
+		}
+		this.info = new DataLine.Info(SourceDataLine.class,this.outFormat);
+		this.sourceDataLine = (SourceDataLine)AudioSystem.getLine(info);
+		sourceDataLine.open(this.outFormat);
+		this.sourceDataLine.start();
+		//this.size = Math.min(max_size*2, sourceDataLine.getBufferSize()/3);
+		this.size = max_size*2;
+		this.buffer = new byte[size];
+	}
 
 	/**
 	 * 与えられたバッファサイズとoutFormatを元にスピーカにアクセスして、ストリームを取得します。

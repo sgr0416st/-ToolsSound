@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 
-import sgr.st.sound.old.RealtimeRecordSoundSender;
-import sgr.st.sound.old.SoundRules;
+import sgr.st.sound._old.RealtimeRecordSoundSender;
+import sgr.st.sound._old.SoundRules;
 
 public class RealtimeVoiceSendTest {
 	// public static final String IP = NetworkData.SOTA_IP;

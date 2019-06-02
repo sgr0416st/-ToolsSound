@@ -1,4 +1,4 @@
-package sgr.st.sound.old;
+package sgr.st.sound._old;
 
 import java.io.IOException;
 import java.net.DatagramSocket;
@@ -10,7 +10,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
 
-import sgr.st.rtp.lib.RTPReceiveThread;
+import sgr.st._old.rtp.lib.RTPReceiveThread;
 import sgr.st.thread.lib.ICallback;
 import sgr.st.thread.lib.ThreadOperater;
 

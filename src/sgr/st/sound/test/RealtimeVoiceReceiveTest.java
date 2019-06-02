@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 
-import sgr.st.sound.old.RealtimeReceiveSoundPlayer;
-import sgr.st.sound.old.SoundRules;
+import sgr.st.sound._old.RealtimeReceiveSoundPlayer;
+import sgr.st.sound._old.SoundRules;
 
 public class RealtimeVoiceReceiveTest {
 
