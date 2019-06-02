@@ -17,21 +17,22 @@ public class AudioPlayer{
 	protected DataLine.Info dataInfo;
 	protected SourceDataLine sourceDataLine;
 	protected byte[] buffer;
-	protected int size;
+	protected int in_size, out_size;
 	protected AudioInputStream inStream, outStream;
 
 	/**
 	 * 与えられたバッファサイズとoutFormatを元にスピーカにアクセスして、ストリームを取得します。
 	 * 取得したストリームはinFormatの形式で受け取ることができる様になります。
 	 *
-	 * @param max_size ラインへ１度に送る最大のデータ量
+	 * @param in_size １度の書き込み時に受け取るデータ量
+	 * @param out_size ラインへ１度に送るデータ量
 	 * @param inFormat 読み取り形式。スピーカから取得したラインはこの形式で渡せる様に変換されます。
 	 * nullを渡すと、元のフォーマットを維持したまま読み取りが可能になります。
 	 * @param outFormat スピーカデバイスへ渡すデータの形式。基本的には Linearです。
 	 * @throws LineUnavailableException
 	 */
-	public AudioPlayer(int max_size, AudioFormat inFormat, AudioFormat outFormat) throws LineUnavailableException {
-		init(max_size, inFormat, outFormat);
+	public AudioPlayer(int in_size, int out_size, AudioFormat inFormat, AudioFormat outFormat) throws LineUnavailableException {
+		init(in_size, out_size, inFormat, outFormat);
 		prepareLine();
 	}
 
@@ -40,13 +41,15 @@ public class AudioPlayer{
 	 * スピーカへ渡すデータの形式をLinearと仮定します。
 	 * 取得したストリームはoutFormatの形式で受け取ることができる様になります。
 	 *
-	 * @param max_size ラインから１度に読み取る最大のデータ量
+	 * @param in_size １度の書き込み時に受け取るデータ量
+	 * @param out_size ラインへ１度に送るデータ量
 	 * @param inFormat 読み取り形式。スピーカから取得したラインはこの形式で受け取れる様に変換されます。
 	 * @throws LineUnavailableException
 	 */
-	public AudioPlayer(int max_size, AudioFormat inFormat) throws LineUnavailableException {
+	public AudioPlayer(int in_size, int out_size, AudioFormat inFormat) throws LineUnavailableException {
 		this(
-				max_size,
+				in_size,
+				out_size,
 				inFormat,
 				new AudioFormat(
 						AudioRules.sampleRate,
@@ -63,12 +66,13 @@ public class AudioPlayer{
 	 * スピーカへ渡すデータの形式をLinearと仮定します。
 	 * 取得したストリームは元の形式を維持したまま渡せます。
 	 *
-	 * @param max_size ラインから１度に読み取る最大のデータ量
+	 * @param size １度に読み込み、ラインへ送るデータ量
 	 * @throws LineUnavailableException
 	 */
-	public AudioPlayer(int max_size) throws LineUnavailableException {
+	public AudioPlayer(int size) throws LineUnavailableException {
 		this(
-				max_size,
+				size,
+				size,
 				null,
 				new AudioFormat(
 						AudioRules.sampleRate,
@@ -80,14 +84,16 @@ public class AudioPlayer{
 				);
 	}
 
+
 	/**
-	 * シンプルに初期化するメソッド
+	 * シンプルに初期化するメソッド.
 	 *
-	 * @param max_size
+	 * @param in_size
+	 * @param out_size
 	 * @param inFormat
 	 * @param outFormat
 	 */
-	protected void init(int max_size, AudioFormat inFormat, AudioFormat outFormat) {
+	protected void init(int in_size, int out_size, AudioFormat inFormat, AudioFormat outFormat) {
 		this.outFormat = outFormat;
 		if(inFormat == null) {
 			this.inFormat = outFormat;
@@ -96,8 +102,9 @@ public class AudioPlayer{
 		}
 		this.dataInfo = new DataLine.Info(SourceDataLine.class,this.outFormat);
 		//this.size = Math.min(max_size*2, sourceDataLine.getBufferSize()/3);
-		this.size = max_size;
-		this.buffer = new byte[size*2];
+		this.in_size = in_size;
+		this.out_size = out_size;
+		this.buffer = new byte[out_size];
 
 	}
 
@@ -136,7 +143,7 @@ public class AudioPlayer{
 	 * @throws LineUnavailableException
 	 */
 	public void write(ByteArrayInputStream stream) {
-		inStream = new AudioInputStream(stream, inFormat, size);
+		inStream = new AudioInputStream(stream, inFormat, in_size);
 		if(this.outFormat != this.inFormat) {
 			this.outStream = AudioSystem.getAudioInputStream(this.outFormat, inStream);
 		}else {
