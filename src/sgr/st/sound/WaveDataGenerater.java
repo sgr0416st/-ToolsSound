@@ -1,4 +1,4 @@
-package sgr.st.sound.lib;
+package sgr.st.sound;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;

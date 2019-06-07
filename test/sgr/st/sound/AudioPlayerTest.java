@@ -1,4 +1,4 @@
-package sgr.st.sound.test;
+package sgr.st.sound;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -7,7 +7,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 
-import sgr.st.sound.lib.AudioPlayer;
+import sgr.st.sound.AudioPlayer;
 
 public class AudioPlayerTest {
 

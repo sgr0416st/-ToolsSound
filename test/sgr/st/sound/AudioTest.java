@@ -1,4 +1,4 @@
-package sgr.st.sound.test;
+package sgr.st.sound;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,6 @@ import javax.sound.sampled.Mixer;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import sgr.st.media.lib.MediaSettings;
 
 /**
  * デバイスのAudioミキサーが使用可能か調べるクラス。
@@ -63,9 +62,6 @@ public class AudioTest {
 		System.out.println("mixers_info:");
 		for(Mixer.Info mi : mixers_info) {
 			System.out.println(mi.toString());
-			if(mi.getName().equals(MediaSettings.MIXER_NAME_OF_SOTA.getString())) {
-				System.out.println("match!!!!");
-			}
 		}
 		System.out.println();
 
