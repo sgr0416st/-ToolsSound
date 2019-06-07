@@ -103,6 +103,7 @@ public class AudioPlayer{
 
 	/**
 	 * 指定した規約を満たすオーディオのソースラインを１つ取得するメソッド。
+	 * コンストラクタの実行時、initで変数が初期化されたのちに呼び出します。
 	 *
 	 * @throws LineUnavailableException
 	 */
