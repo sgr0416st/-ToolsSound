@@ -1,4 +1,4 @@
-package sgr.st.sound;
+package sgr.st;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -68,11 +68,11 @@ public class AudioPlayer{
 				size,
 				null,
 				new AudioFormat(
-						AudioRules.sampleRate,
-						AudioRules.sampleSizeInBits_PCM,
-						AudioRules.channels,
+						AudioConstants.sampleRate,
+						AudioConstants.sampleSizeInBits_PCM,
+						AudioConstants.channels,
 						true,
-						AudioRules.isBigEndian
+						AudioConstants.isBigEndian
 						)
 				);
 	}
@@ -113,8 +113,6 @@ public class AudioPlayer{
 		this.sourceDataLine.start();
 	}
 
-
-
 	public void restart() {
 		this.sourceDataLine.start();
 	}
@@ -133,7 +131,7 @@ public class AudioPlayer{
 	 * 取得したストリームへ、あらかじめ指定された量以下のデータを書き込みます。
 	 * 与えられたバイトストリームを適切なデータ形式に変換して、それをスピーカに渡します。
 	 *
-	 * @return　読み取ったデータから新たに生成したバイトストリーム
+	 * @return 読み取ったデータから新たに生成したバイトストリーム
 	 * @throws LineUnavailableException
 	 */
 	public void write(ByteArrayInputStream stream) {

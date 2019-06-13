@@ -1,6 +1,6 @@
-package sgr.st.sound;
+package sgr.st;
 
-public class AudioRules {
+public class AudioConstants {
 	public static final float sampleRate = 8000;
 	public static final int sampleSizeInBits_ulaw = 8;
 	public static final int sampleSizeInBits_PCM = 16;

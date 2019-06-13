@@ -1,4 +1,4 @@
-package sgr.st.sound;
+package sgr.st;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -50,7 +50,6 @@ public class AudioCapture {
 		}else {
 			outStream = inStream;
 		}
-
 	}
 
 	/**
@@ -67,11 +66,11 @@ public class AudioCapture {
 				bffsize,
 				outFormat,
 				new AudioFormat(
-						AudioRules.sampleRate,
-						AudioRules.sampleSizeInBits_PCM,
-						AudioRules.channels,
+						AudioConstants.sampleRate,
+						AudioConstants.sampleSizeInBits_PCM,
+						AudioConstants.channels,
 						true,
-						AudioRules.isBigEndian
+						AudioConstants.isBigEndian
 						)
 				);
 	}
@@ -89,11 +88,11 @@ public class AudioCapture {
 				bffsize,
 				null,
 				new AudioFormat(
-						AudioRules.sampleRate,
-						AudioRules.sampleSizeInBits_PCM,
-						AudioRules.channels,
+						AudioConstants.sampleRate,
+						AudioConstants.sampleSizeInBits_PCM,
+						AudioConstants.channels,
 						true,
-						AudioRules.isBigEndian
+						AudioConstants.isBigEndian
 						)
 				);
 	}
@@ -114,10 +113,8 @@ public class AudioCapture {
 
 	/**
 	 * ストリームを閉じます。
-	 * @throws LineUnavailableException すでにストリームが閉じている場合。
 	 */
-	public void close() throws LineUnavailableException {
-		checkOpen();
+	public void close() {
 		try {
 			outStream.close();
 			isOpen = false;
@@ -130,11 +127,9 @@ public class AudioCapture {
 	 * 取得したストリームから、あらかじめ指定された量以下のデータを読み取ります。
 	 * 読み取ったデータから新たにバイトストリームを生成し、それを返します。
 	 *
-	 * @return　読み取ったデータから新たに生成したバイトストリーム
-	 * @throws LineUnavailableException
+	 * @return 読み取ったデータから新たに生成したバイトストリーム
 	 */
-	public byte[] read() throws LineUnavailableException {
-		checkOpen();
+	public byte[] read() {
 		byte[] buffer = new byte[bffsize];
 		try {
 			outStream.read(buffer, 0, buffer.length);
@@ -145,13 +140,4 @@ public class AudioCapture {
 
 		return buffer;
 	}
-
-	private void checkOpen() throws LineUnavailableException {
-		if(!isOpen) {
-			throw new LineUnavailableException();
-		}
-	}
-
-
-
 }
