@@ -1,4 +1,4 @@
-package sgr.st;
+package sgr.st.audio;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +64,6 @@ public class AudioTest {
 			System.out.println(mi.toString());
 		}
 		System.out.println();
-
 
 		// データラインの確認
 		data_info = new DataLine.Info(SourceDataLine.class, format); // format is an AudioFormat object

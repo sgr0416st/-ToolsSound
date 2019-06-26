@@ -48,8 +48,8 @@ public class AudioRecorder {
 	 * .wav拡張子で音声データを保存します。
 	 * @param fileName
 	 */
-	public void save(String fileName) {
-		File file = new File(fileName + ".wav");
+	public void save(String filePath) {
+		File file = new File(filePath);
 		try {
 			AudioSystem.write(this.getStream(), AudioFileFormat.Type.WAVE , file);
 		} catch (IOException e) {

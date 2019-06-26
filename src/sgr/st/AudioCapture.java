@@ -19,6 +19,8 @@ public class AudioCapture {
 	protected ByteArrayOutputStream byteArrayOutputStream;
 	protected boolean isOpen;
 	protected int bffsize;
+	protected byte[] buffer;
+
 
 	/**
 	 * 与えられたバッファサイズとフォーマットを元にマイクにアクセスして、ストリームを取得します。
@@ -50,6 +52,7 @@ public class AudioCapture {
 		}else {
 			outStream = inStream;
 		}
+		buffer = new byte[bffsize];
 	}
 
 	/**
@@ -130,7 +133,7 @@ public class AudioCapture {
 	 * @return 読み取ったデータから新たに生成したバイトストリーム
 	 */
 	public byte[] read() {
-		byte[] buffer = new byte[bffsize];
+		//byte[] buffer = new byte[bffsize];
 		try {
 			outStream.read(buffer, 0, buffer.length);
 		} catch (IOException e) {

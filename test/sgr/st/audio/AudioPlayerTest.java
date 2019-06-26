@@ -1,4 +1,4 @@
-package sgr.st;
+package sgr.st.audio;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
