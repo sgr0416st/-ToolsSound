@@ -22,9 +22,20 @@ public class AudioRecorder {
 	private AudioFormat audioFormat;
 	private ByteArrayOutputStream baos;
 
+
 	public AudioRecorder(AudioFormat audioFormat) {
 		this.audioFormat = audioFormat;
 		this.baos = new ByteArrayOutputStream();
+	}
+	public AudioRecorder() {
+		this(new AudioFormat(
+						AudioConstants.sampleRate,
+						AudioConstants.sampleSizeInBits_PCM,
+						AudioConstants.channels,
+						true,
+						AudioConstants.isBigEndian
+						)
+				);
 	}
 
 	public void write(byte[] data, int off, int length) {

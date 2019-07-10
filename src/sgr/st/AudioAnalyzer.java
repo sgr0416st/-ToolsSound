@@ -59,33 +59,36 @@ public class AudioAnalyzer {
 		ByteBuffer bb = ByteBuffer.wrap(segment);
 		bb.order(order);
 
-		// 現在のsegment の平均値計算
-		while(bb.hasRemaining()) {
-			try {
-				if(format.getFrameSize() == 2) {
-					average += Math.abs(bb.getShort());
-				}else {
-					average += Math.abs(bb.get());
-				}
-			}catch (BufferOverflowException  e) {}
-		}
-		average /= (segment.length/format.getFrameSize());
-
-		// 保存してある直前の数セグメントと現在のセグメントの音圧の平均値を比較
-		if(!average_que.offer(average)) {
-			int allav = 0;
-			for(Integer av: average_que) {
-				allav += av.intValue();
+		if((bb.remaining() % format.getFrameSize()) != 0) {
+			return -1;
+		}else {
+			// 現在のsegment の平均値計算
+			while(bb.hasRemaining()) {
+				try {
+					if(format.getFrameSize() == 2) {
+						average += Math.abs(bb.getShort());
+					}else {
+						average += Math.abs(bb.get());
+					}
+				}catch (BufferOverflowException  e) {}
 			}
-			allav /= average_que.size();
-			diff = average - allav;
+			average /= (segment.length/format.getFrameSize());
 
-			// 新しいセグメントの保存と古いセグメントの破棄
-			average_que.poll();
-			average_que.offer(average);
+			// 保存してある直前の数セグメントと現在のセグメントの音圧の平均値を比較
+			if(!average_que.offer(average)) {
+				int allav = 0;
+				for(Integer av: average_que) {
+					allav += av.intValue();
+				}
+				allav /= average_que.size();
+				diff = average - allav;
+
+				// 新しいセグメントの保存と古いセグメントの破棄
+				average_que.poll();
+				average_que.offer(average);
+			}
+			return diff;
 		}
-		return diff;
 	}
-
 
 }
