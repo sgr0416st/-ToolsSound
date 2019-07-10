@@ -36,17 +36,7 @@ public class AudioAnalyzerDemo {
 					"/Users/satousuguru/workspace/programing/java/propaties/network.properties"
 					);
 
-			audioBufSize_ulaw = Integer.parseInt(reader.getProPerty("SIZE_MAX_DATA_ULAW"));
 			audioBufSize_linear = Integer.parseInt(reader.getProPerty("SIZE_MAX_DATA_LINEAR"));
-			ulawFormat = new AudioFormat(
-					AudioFormat.Encoding.ULAW,
-					AudioConstants.sampleRate,
-					AudioConstants.sampleSizeInBits_ulaw,
-					AudioConstants.channels,
-					AudioConstants.frameSize,
-					AudioConstants.frameRate,
-					AudioConstants.isBigEndian
-					);
 			linearFormat = new AudioFormat(
 					AudioConstants.sampleRate,
 					AudioConstants.sampleSizeInBits_PCM,

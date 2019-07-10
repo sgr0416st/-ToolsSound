@@ -14,6 +14,13 @@ public class AudioAnalyzer {
 	private AudioFormat format;
 	private ByteOrder order;
 
+	/**
+	 * 扱うオーディオのフォーマット、監視するセグメントの数を指定して
+	 * 音声解析機を構築します。
+	 *
+	 * @param format  扱うオーディオのフォーマット.
+	 * @param moniteringSegmentNum 直近のデータと比較をする際に保存しておくセグメントの数。
+	 */
 	public AudioAnalyzer(AudioFormat format, int moniteringSegmentNum) {
 		this.format = format;
 		average_que = new ArrayBlockingQueue<Integer>(moniteringSegmentNum);
