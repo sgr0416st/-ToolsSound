@@ -51,10 +51,10 @@ public class AudioAnalyzer {
 	 * 急激な音圧の変化を検出する関数
 	 *
 	 * @param segment 現在の音声シーケンス
-	 * @param threashold 検出する変化量の閾値
-	 * @return 急激な音声変化を検出できたらtrue, それ以外はfalse
+	 * @param length シーケンスに含まれる実データの長さ
+	 * @return 直前の音圧と比較した変化量
 	 */
-	public int detectDiff(byte[] segment) {
+	public int detectDiff(byte[] segment, int length) {
 		int average = 0, diff = 0;
 		ByteBuffer bb = ByteBuffer.wrap(segment);
 		bb.order(order);
@@ -72,7 +72,7 @@ public class AudioAnalyzer {
 					}
 				}catch (BufferOverflowException  e) {}
 			}
-			average /= (segment.length/format.getFrameSize());
+			average /= (length/format.getFrameSize());
 
 			// 保存してある直前の数セグメントと現在のセグメントの音圧の平均値を比較
 			if(!average_que.offer(average)) {
@@ -89,6 +89,15 @@ public class AudioAnalyzer {
 			}
 			return diff;
 		}
+	}
+	/**
+	 * 急激な音圧の変化を検出する関数
+	 *
+	 * @param segment 現在の音声シーケンス
+	 * @return 直前の音圧と比較した変化量
+	 */
+	public int detectDiff(byte[] segment) {
+		return detectDiff(segment, segment.length);
 	}
 
 }
