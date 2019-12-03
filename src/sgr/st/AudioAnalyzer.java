@@ -63,7 +63,8 @@ public class AudioAnalyzer {
 			return -1;
 		}else {
 			// 現在のsegment の平均値計算
-			while(bb.hasRemaining()) {
+			int rest = segment.length - length;
+			while(bb.remaining() > rest) {
 				try {
 					if(format.getFrameSize() == 2) {
 						average += Math.abs(bb.getShort());
